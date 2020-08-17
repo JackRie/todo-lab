@@ -2,23 +2,51 @@
   <section class="todo-section">
     <h1 class="title">TODO List</h1>
     <p class="title-p">A place to store your todos</p>
-    <form class="filter form">
-      <input type="text" placeholder="Filter your to-dos" />
+    <form
+      #filterForm="ngForm"
+      (input)="setFilterTerm(filterForm)"
+      class="filter form"
+    >
+      <input
+        type="text"
+        placeholder="Filter your to-dos"
+        name="filterTerm"
+        id="filterTerm"
+        ngModel
+      />
     </form>
     <p *ngIf="todos.length === 0" class="nothing-todo">Nothing to do!</p>
     <ol class="list">
-      <li *ngFor="let todo of todos">
+      <li *ngFor="let todo of filter(); index as i">
         <div class="list-item-div">
-          <button *ngIf="!todo.completed" class="complete-btn">Complete</button>
-          <p class="task" [ngClass]="{ strikethrough: todo.completed }">
+          <button
+            *ngIf="!todo.completed"
+            (click)="completeTask(i)"
+            class="complete-btn"
+          >
+            Complete
+          </button>
+          <p
+            id="task"
+            class="task"
+            [ngClass]="{ strikethrough: todo.completed }"
+            contenteditable
+          >
             {{ todo.task }}
           </p>
-          <button class="x-btn">X</button>
+          <button (click)="removeTask(i)" class="x-btn">X</button>
         </div>
       </li>
     </ol>
-    <form class="add form">
-      <input type="text" class="add-input" placeholder="Add your to-do" />
+    <form #addForm="ngForm" (ngSubmit)="addTask(addForm)" class="add form">
+      <input
+        type="text"
+        class="add-input"
+        placeholder="Add your to-do"
+        name="add"
+        id="add"
+        ngModel
+      />
       <button class="add-btn">Add</button>
     </form>
   </section>
