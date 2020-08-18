@@ -27,10 +27,10 @@
             Complete
           </button>
           <p
-            id="task"
             class="task"
             [ngClass]="{ strikethrough: todo.completed }"
             contenteditable
+            (input)="editTask()"
           >
             {{ todo.task }}
           </p>

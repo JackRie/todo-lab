@@ -29,6 +29,8 @@ export class TodoComponent implements OnInit {
 
   filterTerm: string;
 
+  // editedTask: string;
+
   constructor() {}
 
   addTask(form: NgForm) {
@@ -37,6 +39,7 @@ export class TodoComponent implements OnInit {
       completed: false,
     };
     this.todos.push(newTodo);
+    form.reset();
   }
 
   removeTask(index: number) {
@@ -47,6 +50,10 @@ export class TodoComponent implements OnInit {
     let todo: Todo = this.todos[index];
     todo.completed = true;
   }
+
+  // editTask(editedTask, index: number) {
+  //   this.todos[index].task = editedTask;
+  // }
 
   setFilterTerm(form: NgForm) {
     // console.log(form);
